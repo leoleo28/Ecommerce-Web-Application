@@ -1,0 +1,622 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ecommerce Website</title>
+  <link rel="shortcut icon" href="{% static 'images/logo/favicon.ico' %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'css/index/style.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+  <script src="https://kit.fontawesome.com/3326c36ed0.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+
+  <div class="overlay" data-overlay></div>
+
+  <!--
+    - MODAL
+  -->
+
+  <div class="modal" data-modal>
+
+    <div class="modal-close-overlay" data-modal-overlay></div>
+
+    <div class="modal-content">
+
+      <button class="modal-close-btn" data-modal-close>
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+
+      <div class="newsletter-img">
+        <img src="{% static 'images/newsletter.png' %}" alt="subscribe newsletter" width="400" height="400">
+      </div>
+
+      <div class="newsletter">
+
+          <div class="newsletter-header">
+
+            <h3 class="newsletter-title">Subscribe eCommerce Website.</h3>
+
+            <p class="newsletter-desc">
+              Subscribe the <b>eCommerce Website</b> to get latest products and discount update.
+            </p>
+
+          </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!--
+    - NOTIFICATION TOAST
+  -->
+
+  <div class="notification-toast" data-toast>
+    <button class="toast-close-btn" data-toast-close>
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+    <div class="toast-banner">
+      <img src="https://images.asos-media.com/products/ray-ban-hexagonal-sunglasses-in-gold-with-purple-lens/201777673-1-gold" alt="Rose Gold Earrings" width="90" height="70">
+    </div>
+    <div class="toast-detail">
+      <p class="toast-message">
+        Someone in new just bought
+      </p>
+      <p class="toast-title">
+        Ray-Ban hexagonal sunglasses in gold with purple lens
+      </p>
+      <p class="toast-meta">
+        <time datetime="PT2M">2 Minutes</time> ago
+      </p>
+    </div>
+  </div>
+
+
+  <!--
+    - HEADER
+  -->
+
+  <header>
+    <div class="header-main" style="background: rgb(250, 223, 228);">
+      <div class="container">
+        <span><strong>Online Shopping</strong></span>
+        <form action="/" method="POST">
+          {% csrf_token %}
+        <div class="header-search-container">
+
+          <input type="text" name="search" class="search-field" placeholder="Enter your product name...">
+
+          <button class="search-btn">
+            <ion-icon name="search-outline"></ion-icon>
+          </button>
+
+        </div>
+        </form>
+
+        <div class="header-user-actions">
+
+          <a href="/heart"><button class="action-btn">
+            <ion-icon name="heart-outline"></ion-icon>
+            <span class="count">{{num_heart}}</span>
+          </button></a>
+
+          <a href="/cart"><button class="action-btn">
+            <ion-icon name="bag-handle-outline"></ion-icon>
+            <span class="count">{{num_cart}}</span>
+          </button></a>
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!--
+    - MAIN
+  -->
+
+  <main>
+
+    <div class="banner">
+
+      <div class="container">
+
+        <div class="slider-container has-scrollbar">
+
+          <div class="slider-item">
+            <img src="{% static 'images/sliderimg1.jpg' %}" alt="women's latest fashion sale" class="banner-img">
+            
+            <div class="banner-content">
+
+              <p class="banner-subtitle" style="color:whitesmoke">Men's latest fashion sale</p>
+              <br><br><br><br><br><br>
+
+            </div>
+
+          </div>
+          <div class="slider-item">
+            <img src="{% static 'images/sliderimg2.png' %}" alt="women's latest fashion sale" class="banner-img">
+
+            <div class="banner-content">
+
+              <p class="banner-subtitle" style="color:whitesmoke">Men's latest fashion sale</p>
+              <br><br><br><br><br><br>
+
+            </div>
+
+          </div>
+
+          <div class="slider-item">
+            <img src="{% static 'images/sliderimg3.png' %}" alt="women's latest fashion sale" class="banner-img">
+
+            <div class="banner-content">
+
+              <p class="banner-subtitle" style="color:whitesmoke">Men's latest fashion sale</p>
+              <br><br><br><br><br><br>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!--
+      - PRODUCT
+    -->
+
+    <div class="product-container">
+
+      <div class="container">
+
+
+        <!--
+          - SIDEBAR
+        -->
+
+        <div class="sidebar  has-scrollbar" data-mobile-menu>
+
+          <div class="sidebar-category">
+
+            <div class="sidebar-top">
+              <h2 class="sidebar-title">Category</h2>
+
+              <button class="sidebar-close-btn" data-mobile-menu-close-btn>
+                <ion-icon name="close-outline"></ion-icon>
+              </button>
+            </div>
+
+            <ul class="sidebar-menu-category-list">
+
+              <li class="sidebar-menu-category">
+
+                <button class="sidebar-accordion-menu" data-accordion-btn>
+
+                  <div class="menu-title-flex">
+                    
+                    <img src="{% static 'images/icons/dress.svg' %}" alt="clothes" width="20" height="20"
+                      class="menu-title-img">
+
+                    <p class="menu-title">Clothing</p>
+                  </div>
+
+                  <div>
+                    <ion-icon name="add-outline" class="add-icon"></ion-icon>
+                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
+                  </div>
+
+                </button>
+
+                <ul class="sidebar-submenu-category-list" data-accordion>
+
+                  <li class="sidebar-submenu-category">
+                    <a href="/category?type=T shirt&page=1" class="sidebar-submenu-title">
+                      <p class="product-name">T Shirts</p>
+                    </a>
+                  </li>
+
+                  <li class="sidebar-submenu-category">
+                    <a href="/category?type=Jacket&page=1" class="sidebar-submenu-title">
+                      <p class="product-name">Jackets</p>
+                    </a>
+                  </li>
+
+                  <li class="sidebar-submenu-category">
+                    <a href="/category?type=Sweater&page=1" class="sidebar-submenu-title">
+                      <p class="product-name">Sweaters</p>
+                    </a>
+                  </li>
+
+                  <li class="sidebar-submenu-category">
+                    <a href="/category?type=Polo&page=1" class="sidebar-submenu-title">
+                      <p class="product-name">Polo shirts</p>
+                    </a>
+                  </li>
+
+                </ul>
+
+              </li>
+
+              <li class="sidebar-menu-category">
+
+                <button class="sidebar-accordion-menu" data-accordion-btn>
+
+                  <div class="menu-title-flex">
+                    
+                    <img src="{% static 'images/icons/shoes.svg' %}" alt="footwear" class="menu-title-img" width="20"
+                      height="20">
+
+                    <p class="menu-title">Shoes</p>
+                  </div>
+
+                  <div>
+                    <ion-icon name="add-outline" class="add-icon"></ion-icon>
+                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
+                  </div>
+
+                </button>
+
+                <ul class="sidebar-submenu-category-list" data-accordion>
+
+                  <li class="sidebar-submenu-category">
+                    <a href="/category?type=Boot&page=1" class="sidebar-submenu-title">
+                      <p class="product-name">Boots</p>
+                    </a>
+                  </li>
+
+                  <li class="sidebar-submenu-category">
+                    <a href="/category?type=Sneaker&page=1" class="sidebar-submenu-title">
+                      <p class="product-name">Sneakers</p>
+                    </a>
+                  </li>
+
+                </ul>
+
+              </li>
+
+              <li class="sidebar-menu-category">
+
+                <button class="sidebar-accordion-menu" data-accordion-btn>
+
+                  <div class="menu-title-flex">
+                    
+                    <img src="{% static 'images/icons/glasses.svg' %}" alt="glasses" class="menu-title-img" width="20"
+                      height="20">
+
+                    <p class="menu-title">Jeans</p>
+                  </div>
+
+                  <div>
+                    <ion-icon name="add-outline" class="add-icon"></ion-icon>
+                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
+                  </div>
+
+                </button>
+
+                <ul class="sidebar-submenu-category-list" data-accordion>
+
+                  <li class="sidebar-submenu-category">
+                    <a href="/category?type=Skinny Jean&page=1" class="sidebar-submenu-title">
+                      <p class="product-name">Skinny Jeans</p>
+                    </a>
+                  </li>
+
+                  <li class="sidebar-submenu-category">
+                    <a href="/category?type=Tapered Jean&page=1" class="sidebar-submenu-title">
+                      <p class="product-name">Tapered Jeans</p>
+                    </a>
+                  </li>
+
+                  <li class="sidebar-submenu-category">
+                    <a href="/category?type=Wide Leg Jean&page=1" class="sidebar-submenu-title">
+                      <p class="product-name">Wide Leg Jeans</p>
+                    </a>
+                  </li>
+
+                </ul>
+
+              </li>
+
+              <li class="sidebar-menu-category">
+
+                <button class="sidebar-accordion-menu" data-accordion-btn>
+
+                  <div class="menu-title-flex">
+                    
+                    <img src="{% static 'images/icons/bag.svg' %}" alt="bags" class="menu-title-img" width="20" height="20">
+
+                    <p class="menu-title">Accessories</p>
+                  </div>
+
+                  <div>
+                    <ion-icon name="add-outline" class="add-icon"></ion-icon>
+                    <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
+                  </div>
+
+                </button>
+
+                <ul class="sidebar-submenu-category-list" data-accordion>
+
+                  <li class="sidebar-submenu-category">
+                    <a href="/category?type=Belt&page=1" class="sidebar-submenu-title">
+                      <p class="product-name">Belts</p>
+                    </a>
+                  </li>
+
+                  <li class="sidebar-submenu-category">
+                    <a href="/category?type=Cap&page=1" class="sidebar-submenu-title">
+                      <p class="product-name">Caps</p>
+                    </a>
+                  </li>
+
+                  <li class="sidebar-submenu-category">
+                    <a href="/category?type=Sunglass&page=1" class="sidebar-submenu-title">
+                      <p class="product-name">Sunglasses</p>
+                    </a>
+                  </li>
+
+                </ul>
+
+              </li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="product-box">
+
+          <!--
+            - PRODUCT MINIMAL
+          -->
+
+          <div class="product-minimal">
+
+            <div class="product-showcase">
+
+              <h2 class="title">New Arrivals</h2>
+
+              <div class="showcase-wrapper has-scrollbar">
+
+                <div class="showcase-container">
+                  {% for a in arrival %}
+                  <div class="showcase">
+
+                    <a href="#" class="showcase-img-box">
+                      <img src="{{a.img}}" alt="relaxed short full sleeve t-shirt" width="70" class="showcase-img">
+                    </a>
+                    
+                    <div class="showcase-content">
+
+                      
+                        <h4 class="showcase-title">{{a.name}}</h4>
+                      
+
+                      <div class="showcase-category">New</div>
+
+                      <div class="price-box">
+                        <p class="price">${{a.price}}</p>
+                      </div>
+
+                    </div>
+
+                  </div>
+                  {% endfor %}
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="product-showcase">
+            
+              <h2 class="title">Trending</h2>
+            
+              <div class="showcase-wrapper  has-scrollbar">
+            
+                <div class="showcase-container">
+                  {% for t in trend %}
+                  <div class="showcase">
+            
+                    <a href="#" class="showcase-img-box">
+                      
+                      <img src="{{t.img}}" alt="running & trekking shoes - white" class="showcase-img"
+                        width="70">
+                    </a>
+            
+                    <div class="showcase-content">
+            
+                      
+                        <h4 class="showcase-title">{{t.name}}</h4>
+                      
+            
+                      <div class="showcase-category">Trending</div>
+            
+                      <div class="price-box">
+                        <p class="price">${{t.price}}</p>
+                      </div>
+            
+                    </div>
+            
+                  </div>
+                  {% endfor %}
+                </div>
+          
+              </div>
+            
+            </div>
+
+            <div class="product-showcase">
+            
+              <h2 class="title">Top Rated</h2>
+            
+              <div class="showcase-wrapper  has-scrollbar">
+            
+                <div class="showcase-container">
+                  {% for s in sell %}
+                  <div class="showcase">
+            
+                    <a href="#" class="showcase-img-box">
+                      
+                      <img src="{{s.img}}" alt="pocket watch leather pouch" class="showcase-img"
+                        width="70">
+                    </a>
+            
+                    <div class="showcase-content">
+            
+                      
+                        <h4 class="showcase-title">{{s.name}}</h4>
+                      
+            
+                      <div class="showcase-category">Best Sellers</div>
+            
+                      <div class="price-box">
+                        <p class="price">${{s.price}}</p>
+                      </div>
+            
+                    </div>
+            
+                  </div>
+                  {% endfor %}
+                </div>
+            
+              </div>
+            
+            </div>
+
+          </div>
+
+
+          <!--
+            - PRODUCT GRID
+          -->
+
+          <div class="product-main">
+
+            <h2 class="title">New Products</h2>
+
+            <div class="product-grid">
+              {% for p in products %}
+              <div class="showcase">
+
+                <div class="showcase-banner">
+                  
+
+                  <img src="{{p.img}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
+                  <img src="{{p.img}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
+
+                  <p class="showcase-badge">15%</p>
+
+                  <div class="showcase-actions">
+
+                    <a href="/likeditem?id={{p.id}}"><button class="btn-action">
+                      <ion-icon name="heart-outline"></ion-icon>
+                    </button></a>
+
+                    <a href="/item/{{p.id}}"><button class="btn-action">
+                      <ion-icon name="eye-outline"></ion-icon>
+                    </button></a>
+
+                    <a href="addtocart?id={{p.id}}"><button class="btn-action">
+                      <ion-icon name="bag-add-outline"></ion-icon>
+                    </button></a>
+
+                  </div>
+
+                </div>
+
+                <div class="showcase-content">
+
+                  <a href="{{category}}" class="showcase-category">{{p.category}}</a>
+
+                  <a href="/item/{{p.id}}" style="text-decoration: none;">
+                    <h3 class="showcase-title">{{p.name}}</h3>
+                    
+                  </a>
+                  
+                  <div class="showcase-rating">
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star-outline"></ion-icon>
+                  </div>
+
+                  <div class="price-box">
+                    <p class="price">${{p.price}}</p>
+                  </div>
+
+                </div>
+
+              </div>
+              {% endfor %}
+              
+            </div>
+                <br><br>
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-center">
+                    {% if products.has_previous %}
+                      <li class="page-item"><a class="page-link" href="?type={{item}}&page={{products.previous_page_number}}">Previous</a></li>
+                    {% endif %}
+                      
+                    {% for i in nums %}
+                    {% if forloop.counter == page %}
+                    <li class="page-item active" aria-current="page"><a class="page-link" href="?type={{item}}&page={{forloop.counter}}">{{forloop.counter}}</a></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?type={{item}}&page={{forloop.counter}}">{{forloop.counter}}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                  
+                    {% if products.has_next %}
+                      <li class="page-item"><a class="page-link" href="?type={{item}}&page={{products.next_page_number}}">Next</a></li>
+                    {% endif %}
+                  </ul>
+                </nav>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer></footer>
+
+  <!--
+    - custom js link
+  -->
+  <script src="{% static 'js/script.js' %}"></script>
+
+  <!--
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>

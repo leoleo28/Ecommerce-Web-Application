@@ -1,0 +1,92 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorite Products</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link rel="stylesheet" href="{% static 'css/cart/style.css' %}">
+    <script src="https://kit.fontawesome.com/3326c36ed0.js" crossorigin="anonymous"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AYkfFQ56YE2CjHPXvAwfQW1qmY7ynFFaGxEAZq8qL4qjd1OHZrK-tsO_-VHezM1bJS1oxZeeyb1x4ZtN&currency=USD"></script>
+    
+</head>
+
+<body>
+
+    <section id="header" style="background: rgb(250, 223, 228);">
+        <span><strong>Online Shopping</strong></span>
+        <div>
+            <ul id="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/">Shop</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="/cart"><i class="fa-solid fa-cart-shopping"></i></a>
+            <i id="bar" class="fa-solid fa-bars"></i>
+        </div>
+    </section>
+
+    <section id="page-header" class="about-header"></section>
+
+    <section id="cart" class="section-p1">
+        <table width="100%">
+            <thead>
+                <tr>
+                    <td>Remove</td>
+                    <td>Image</td>
+                    <td>Product</td>
+                    <td>Price</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for item in items %}
+                <tr class="item">
+                    <td><a href="heart_remove?id={{item.item_id}}"><i class="fa-solid fa-trash"></i></a></td>
+                    <td><img src="{{item.item_img}}" alt=""></td>
+                    <td style="white-space: pre-line;"><a href="/item/{{item.item_id}}">{{item.item_name}}</a></td>
+                    <td>${{item.item_price|floatformat:2}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <h4>Contact</h4>
+            <p><strong>Address:</strong> 123 Wellington Road, Street 45, San Francisco</p>
+            <p><strong>Phone:</strong> +01 2222 365 /(+91) 01 2345 6789</p>
+            <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+        </div>
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="/logout">Logout</a>
+            <a href="/cart">View Cart</a>
+            <a href="/heart">My Favorite Products</a>
+            <a href="#">Help</a>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/script_2.js' %}"></script>
+
+</body>
+
+</html>

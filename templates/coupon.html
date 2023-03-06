@@ -1,0 +1,227 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link rel="stylesheet" href="{% static 'css/cart/style.css' %}">
+
+    <script type="text/javascript">
+        function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+    </script>
+    <script src="https://kit.fontawesome.com/3326c36ed0.js" crossorigin="anonymous"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AYkfFQ56YE2CjHPXvAwfQW1qmY7ynFFaGxEAZq8qL4qjd1OHZrK-tsO_-VHezM1bJS1oxZeeyb1x4ZtN&currency=USD"></script>
+    
+</head>
+
+<body>
+
+    <section id="header" style="background: rgb(250, 223, 228);">
+        <span><strong>Online Shopping</strong></span>
+        <div>
+            <ul id="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/">Shop</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="/cart"><i class="fa-solid fa-cart-shopping"></i></a>
+            <i id="bar" class="fa-solid fa-bars"></i>
+        </div>
+    </section>
+    <section id="page-header" class="about-header"></section>
+    <section id="cart" class="section-p1">
+        <table width="100%">
+            <thead>
+                <tr>
+                    <td>Remove</td>
+                    <td>Image</td>
+                    <td>Product</td>
+                    <td>Price</td>
+                    <td>Quantity</td>
+                    <td>Subtotal</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for item in items %}
+                <tr class="item">
+                    <td><a href="updatecart_remove?id={{item.item_id}}"><i class="fa-solid fa-trash"></i></a></td>
+                    <td><img src="{{item.item_img}}" alt=""></td>
+                    <td style="white-space: pre-line;"><a href="/item/{{item.item_id}}">{{item.item_name}}</a></td>
+                    <td>${{item.item_price|floatformat:2}}</td>
+                    <td><span>{{item.quantity}}</span><span><a href="updatecart_add?id={{item.item_id}}"><i class="fa-solid fa-plus"></i></a></span><span><a href="updatecart_minus?id={{item.item_id}}"><i class="fa-solid fa-minus"></i></a></span></td>
+                    <td><span>${{item.get_total|floatformat:2}}</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    
+    <section id="cart-add" class="section-p1">
+        <div id="cuopon">
+            <h3>Apply Coupon</h3>
+            <div>
+                <input type="text" name="" id="" placeholder="Enter Your Coupon">
+                <a href="/apply_coupon"><button class="normal">Apply</button></a>
+            </div>
+        </div>
+
+        <div id="subtotal">
+            <h3>Cart Totals</h3>
+            <table>
+                <tr>
+                    <td>Cart Subtotal</td>
+                    <td>$ {{total_1|floatformat:2}}</td>
+                </tr>
+                <tr>
+                    <td>Shipping</td>
+                    <td>Free</td>
+                </tr>
+                <tr>
+                    <td><strong>Total</strong></td>
+                    <td><span style="margin-right:5px"><del style="text-decoration: line-through;"><strong>$ {{total_1|floatformat:2}}</strong></del style="text-decoration: line-through;"></span><span><strong>$ {{total_2|floatformat:2}}</strong></span></td>
+                </tr>
+            </table>
+
+            <!-- PAYPAL BUTTONS HERE  -->
+            <h3 style="margin:15px 0px">Paypal Options</h3>
+            <div id="paypal-button-container"></div>
+
+            <!-- Include the PayPal JavaScript SDK -->
+            <script
+                src="https://www.paypal.com/sdk/js?client-id=https://www.paypal.com/sdk/js?client-id=AYkfFQ56YE2CjHPXvAwfQW1qmY7ynFFaGxEAZq8qL4qjd1OHZrK-tsO_-VHezM1bJS1oxZeeyb1x4ZtN&currency=USD">
+            </script>
+
+            <script>
+                // Render the PayPal button into #paypal-button-container
+                paypal.Buttons({
+
+                    // Set up the transaction
+                    createOrder: function (data, actions) {
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: '{{total_2|floatformat:2}}'
+                                }
+                            }]
+                        });
+                    },
+
+                    // Finalize the transaction
+                    onApprove: function (data, actions) {
+                        return actions.order.capture().then(function (details) {
+                            // Show a success message to the buyer
+                            // alert('Transaction completed by ' + details.payer.name
+                            //     .given_name + '!');
+                            submitData()
+                        });
+                    }
+
+                }).render('#paypal-button-container');
+
+                function submitData(){
+                    var p ={
+                        'name':null,
+                    }
+
+                    var url='/after'
+                    fetch(url,{
+                        method:'POST',
+                        headers:{
+                            'Content-Type':'application/json',
+                            'X-CSRFToken':csrftoken,
+                        },
+                        body:JSON.stringify({'p':p})
+                    })
+                    .then((response)=>response.json())
+                    .then((data)=>{
+                        console.log('Success');
+                        alert('Completed');
+                        window.location.href="{%  url 'index' %}"
+                    })
+                }
+            </script>
+            <script type="text/javascript">
+                function submitData(){
+                    var products ={
+                        'name':null,
+                    }
+
+                    var url='/after'
+                    fetch(url,{
+                        method:'POST',
+                        headers:{
+                            'Content-Type':'application/json',
+                            'X-CSRFToken':csrftoken,
+                        },
+                        body:JSON.stringify({'products':products})
+                    })
+                    .then((response)=>response.json())
+                    .then((data)=>{
+                        console.log('Success');
+                        alert('Completed');
+                        window.location.href="{%  url 'index' %}"
+                    })
+                }
+            </script>
+            
+        </div>
+
+
+    </section>
+
+
+    <footer class="section-p1">
+        <div class="col">
+            <h4>Contact</h4>
+            <p><strong>Address:</strong> 123 Wellington Road, Street 45, San Francisco</p>
+            <p><strong>Phone:</strong> +01 2222 365 /(+91) 01 2345 6789</p>
+            <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+        </div>
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="/logout">Logout</a>
+            <a href="/cart">View Cart</a>
+            <a href="/heart">My Favorite Products</a>
+            <a href="#">Help</a>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/script_2.js' %}"></script>
+
+</body>
+
+</html>
